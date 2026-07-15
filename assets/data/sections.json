@@ -1,0 +1,392 @@
+[
+  {
+    "id": "unknown",
+    "title": "Unknown",
+    "items": [
+      "page_001",
+      "page_002",
+      "page_003"
+    ],
+    "page_start": 1,
+    "page_end": 3
+  },
+  {
+    "id": "presentation",
+    "title": "Presentazione del Vescovo",
+    "items": [
+      "page_005",
+      "page_006"
+    ],
+    "page_start": 5,
+    "page_end": 6
+  },
+  {
+    "id": "morning_prayer",
+    "title": "Morning Prayers",
+    "items": [
+      "page_007",
+      "page_008",
+      "page_009"
+    ],
+    "page_start": 7,
+    "page_end": 9
+  },
+  {
+    "id": "evening_prayer",
+    "title": "Evening Prayers",
+    "items": [
+      "page_010"
+    ],
+    "page_start": 10,
+    "page_end": 10
+  },
+  {
+    "id": "additional_prayers",
+    "title": "Additional Prayers",
+    "items": [
+      "page_011",
+      "page_012",
+      "page_013",
+      "page_014",
+      "page_015",
+      "page_016",
+      "page_017",
+      "page_018",
+      "page_019"
+    ],
+    "page_start": 11,
+    "page_end": 19
+  },
+  {
+    "id": "holy_mass",
+    "title": "Holy Mass",
+    "items": [
+      "page_021",
+      "page_022",
+      "page_023",
+      "page_024",
+      "page_025",
+      "page_026",
+      "page_027",
+      "page_028",
+      "page_029",
+      "page_030",
+      "page_031",
+      "page_032",
+      "page_033",
+      "page_034",
+      "page_035",
+      "page_036",
+      "page_037",
+      "page_038",
+      "page_039",
+      "page_040",
+      "page_041",
+      "page_042",
+      "page_043",
+      "page_044",
+      "page_045",
+      "page_046",
+      "page_047",
+      "page_048",
+      "page_049"
+    ],
+    "page_start": 21,
+    "page_end": 49
+  },
+  {
+    "id": "outstation_service",
+    "title": "Outstation Service",
+    "items": [
+      "page_050",
+      "page_051",
+      "page_052",
+      "page_053"
+    ],
+    "page_start": 50,
+    "page_end": 53
+  },
+  {
+    "id": "penance",
+    "title": "The Sacrament of Penance",
+    "items": [
+      "page_054",
+      "page_055",
+      "page_056",
+      "page_057"
+    ],
+    "page_start": 54,
+    "page_end": 57
+  },
+  {
+    "id": "baptism",
+    "title": "The Sacrament of Baptism",
+    "items": [
+      "page_058",
+      "page_059",
+      "page_060"
+    ],
+    "page_start": 58,
+    "page_end": 60
+  },
+  {
+    "id": "confirmation",
+    "title": "The Sacrament of Confirmation",
+    "items": [
+      "page_061"
+    ],
+    "page_start": 61,
+    "page_end": 61
+  },
+  {
+    "id": "marriage",
+    "title": "The Sacrament of Marriage",
+    "items": [
+      "page_062",
+      "page_063"
+    ],
+    "page_start": 62,
+    "page_end": 63
+  },
+  {
+    "id": "anointing",
+    "title": "Sacrament of the Anointing of the Sick",
+    "items": [
+      "page_064",
+      "page_065",
+      "page_066",
+      "page_067"
+    ],
+    "page_start": 64,
+    "page_end": 67
+  },
+  {
+    "id": "sacred_heart",
+    "title": "Devotion to the Sacred Heart of Jesus",
+    "items": [
+      "page_068",
+      "page_069",
+      "page_070",
+      "page_071",
+      "page_072"
+    ],
+    "page_start": 68,
+    "page_end": 72
+  },
+  {
+    "id": "blessed_virgin",
+    "title": "Devotion to the Blessed Virgin Mary",
+    "items": [
+      "page_073",
+      "page_074"
+    ],
+    "page_start": 73,
+    "page_end": 74
+  },
+  {
+    "id": "holy_rosary",
+    "title": "The Holy Rosary",
+    "items": [
+      "page_076",
+      "page_077",
+      "page_078",
+      "page_079",
+      "page_080",
+      "page_081"
+    ],
+    "page_start": 76,
+    "page_end": 81
+  },
+  {
+    "id": "way_of_cross",
+    "title": "The Way of the Cross",
+    "items": [
+      "page_082",
+      "page_083",
+      "page_085",
+      "page_087",
+      "page_089",
+      "page_091",
+      "page_093",
+      "page_095",
+      "page_097",
+      "page_099",
+      "page_101",
+      "page_103",
+      "page_105",
+      "page_107",
+      "page_109",
+      "page_111"
+    ],
+    "page_start": 82,
+    "page_end": 111
+  },
+  {
+    "id": "doctrine",
+    "title": "Summary of Catholic Doctrine",
+    "items": [
+      "page_112",
+      "page_113",
+      "page_114",
+      "page_116",
+      "page_117",
+      "page_118",
+      "page_119"
+    ],
+    "page_start": 112,
+    "page_end": 119
+  },
+  {
+    "id": "hymns",
+    "title": "Hymns",
+    "items": [
+      "page_120",
+      "page_121",
+      "page_122",
+      "page_123",
+      "page_124",
+      "page_125",
+      "page_126",
+      "page_127",
+      "page_128",
+      "page_129",
+      "page_130",
+      "page_131",
+      "page_132",
+      "page_133",
+      "page_134",
+      "page_135",
+      "page_136",
+      "page_137",
+      "page_138",
+      "page_139",
+      "page_140",
+      "page_141",
+      "page_142",
+      "page_143",
+      "page_144",
+      "page_145",
+      "page_146",
+      "page_147",
+      "page_148",
+      "page_149",
+      "page_150",
+      "page_151",
+      "page_152",
+      "page_153",
+      "page_154",
+      "page_155",
+      "page_156",
+      "page_157",
+      "page_158",
+      "page_159",
+      "page_160",
+      "page_161",
+      "page_162",
+      "page_163",
+      "page_164",
+      "page_165",
+      "page_166",
+      "page_167",
+      "page_168",
+      "page_169",
+      "page_170",
+      "page_171",
+      "page_172",
+      "page_173",
+      "page_174",
+      "page_175",
+      "page_176",
+      "page_177",
+      "page_178",
+      "page_179",
+      "page_180",
+      "page_181",
+      "page_182",
+      "page_183",
+      "page_184",
+      "page_185",
+      "page_186",
+      "page_187",
+      "page_188",
+      "page_189",
+      "page_190",
+      "page_191",
+      "page_192",
+      "page_193",
+      "page_194",
+      "page_195",
+      "page_196",
+      "page_197",
+      "page_198"
+    ],
+    "page_start": 120,
+    "page_end": 198
+  },
+  {
+    "id": "eucharistic_adoration",
+    "title": "Eucharistic Adoration and Benediction",
+    "items": [
+      "page_199",
+      "page_200",
+      "page_201"
+    ],
+    "page_start": 199,
+    "page_end": 201
+  },
+  {
+    "id": "faithful_departed",
+    "title": "A Celebration of the Word for the Faithful Departed",
+    "items": [
+      "page_202",
+      "page_203",
+      "page_204",
+      "page_205",
+      "page_206"
+    ],
+    "page_start": 202,
+    "page_end": 206
+  },
+  {
+    "id": "blessing_home",
+    "title": "Blessing of a Home",
+    "items": [
+      "page_207",
+      "page_208",
+      "page_209"
+    ],
+    "page_start": 207,
+    "page_end": 209
+  },
+  {
+    "id": "psalms",
+    "title": "Prayer with the Psalms (Lauds and Vespers)",
+    "items": [
+      "page_210",
+      "page_211",
+      "page_212",
+      "page_213",
+      "page_214",
+      "page_215",
+      "page_216",
+      "page_217",
+      "page_218",
+      "page_219",
+      "page_220",
+      "page_221"
+    ],
+    "page_start": 210,
+    "page_end": 221
+  },
+  {
+    "id": "hymn_index",
+    "title": "Alphabetic List of Songs and Hymns",
+    "items": [
+      "page_222",
+      "page_223",
+      "page_224"
+    ],
+    "page_start": 222,
+    "page_end": 224
+  }
+]

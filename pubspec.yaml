@@ -1,0 +1,49 @@
+name: makeni_prayer_book
+description: "The official digital companion to the Makeni Prayer Book for the Catholic community in Sierra Leone."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.11.5
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Navigation
+  go_router: ^14.8.1
+
+  # Dependency Injection
+  get_it: ^8.0.3
+
+  # State Management
+  flutter_riverpod: ^2.6.1
+
+  # Database
+  sqflite: ^2.4.1
+
+  # Local Storage
+  shared_preferences: ^2.3.4
+  path_provider: ^2.1.5
+  path: ^1.9.1
+
+  # Utilities
+  intl: ^0.20.2
+  collection: ^1.19.1
+  flutter_local_notifications: ^22.0.1
+  google_fonts: ^6.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/data/
+    - assets/images/
+    - assets/icons/
+    - assets/fonts/
