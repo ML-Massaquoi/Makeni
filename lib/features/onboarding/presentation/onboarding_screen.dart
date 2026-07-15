@@ -205,7 +205,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
               0, 0, 0, 1, 0,
             ]),
             child: Image.asset(
-              'assets/images/diocese_of_makeni.jpg',
+              'assets/images/makeni_cathedral.png',
               fit: BoxFit.fitWidth,
               alignment: const Alignment(0.0, -0.15),
             ),
@@ -354,7 +354,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(24),
                     child: Image.asset(
-                      'assets/images/bishop_portrait.jpg',
+                      'assets/images/bishop_koroma.png',
                       fit: BoxFit.cover,
                       alignment: const Alignment(0.0, -0.1),
                     ),
@@ -455,7 +455,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
               0, 0, 0, 1, 0,
             ]),
             child: Image.asset(
-              'assets/images/clergy_photo.jpg',
+              'assets/images/makeni_clergy.png',
               fit: BoxFit.fitWidth,
               alignment: Alignment.center,
             ),

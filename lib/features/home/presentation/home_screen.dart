@@ -211,11 +211,11 @@ class HomeScreen extends StatelessWidget {
         child: Stack(
           fit: StackFit.expand,
           children: [
-            // Cathedral background
+            // Patroness background
             Image.asset(
-              'assets/images/diocese_of_makeni.jpg',
+              'assets/images/fatima_patroness.png',
               fit: BoxFit.fitWidth,
-              alignment: const Alignment(0.0, -0.2),
+              alignment: const Alignment(0.0, 0.0),
             ),
             // Gradient overlay
             Container(

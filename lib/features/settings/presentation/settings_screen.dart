@@ -228,6 +228,41 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return _buildSection(
       title: 'About',
       children: [
+        // Bishop portrait
+        Padding(
+          padding: const EdgeInsets.fromLTRB(Spacing.lg, Spacing.lg, Spacing.lg, Spacing.md),
+          child: Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.asset(
+                  'assets/images/bishop_koroma_landscape.png',
+                  width: 80,
+                  height: 56,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              const SizedBox(width: Spacing.lg),
+              const Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Rev. Dr. Bob John Hassan Koroma',
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.textPrimary)),
+                    SizedBox(height: 2),
+                    Text('Bishop of Makeni Diocese',
+                        style: TextStyle(
+                            fontSize: 12, color: AppColors.textSecondary)),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        const Divider(height: 1, color: AppColors.divider),
         _buildInfoRow('App Name', AppConfig.appName),
         const Divider(height: 1, color: AppColors.divider),
         _buildInfoRow('Version', AppConfig.appVersion),

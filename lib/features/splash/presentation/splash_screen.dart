@@ -251,7 +251,7 @@ class _SplashScreenState extends State<SplashScreen>
                           0, 0, 0, 1, 0,
                         ]),
                         child: Image.asset(
-                          'assets/images/diocese_of_makeni.jpg',
+                          'assets/images/makeni_cathedral_hero.png',
                           fit: BoxFit.fitWidth,
                           width: double.infinity,
                           height: double.infinity,

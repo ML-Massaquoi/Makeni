@@ -211,22 +211,37 @@ class _WorkspaceScreenState extends State<WorkspaceScreen> {
   Widget _buildEmptyState() {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.only(top: 60),
+        padding: const EdgeInsets.only(top: 40),
         child: Column(
           children: [
-            Icon(
-              Icons.explore_outlined,
-              size: 64,
-              color: AppColors.textTertiary.withValues(alpha: 0.4),
+            // Fatima devotion image
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image.asset(
+                'assets/images/fatima_square.png',
+                width: 160,
+                height: 160,
+                fit: BoxFit.cover,
+              ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 24),
             const Text(
-              'No bookmarks or history yet.\nStart reading to see your activity here.',
+              'Your prayer journey begins here',
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                color: AppColors.textPrimary,
+              ),
+            ),
+            const SizedBox(height: 8),
+            const Text(
+              'Bookmark prayers and track your reading\nhistory to see them here.',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 14,
                 color: AppColors.textTertiary,
-                height: 1.4,
+                height: 1.5,
               ),
             ),
           ],
