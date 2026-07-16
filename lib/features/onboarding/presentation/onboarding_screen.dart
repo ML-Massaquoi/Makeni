@@ -17,7 +17,6 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   final PageController _pageController = PageController();
   int _currentPage = 0;
 
-  // Fade-in animations for each page
   late AnimationController _fadeController;
   late Animation<double> _fadeAnimation;
 
@@ -66,7 +65,6 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       backgroundColor: const Color(0xFF0A1628),
       body: Stack(
         children: [
-          // Page view
           PageView.builder(
             controller: _pageController,
             itemCount: 3,
@@ -89,7 +87,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
             },
           ),
 
-          // Skip button (top right) — only on first two pages
+          // Skip button
           if (_currentPage < 2)
             Positioned(
               top: MediaQuery.of(context).padding.top + 16,
@@ -126,7 +124,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // Circular dots
+                  // Dots
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: List.generate(
@@ -154,13 +152,12 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                     child: ElevatedButton(
                       onPressed: _onNext,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFD4A84A),
-                        foregroundColor: const Color(0xFF0A1628),
+                        backgroundColor: const Color(0xFF0A3D62),
+                        foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),
                         ),
                         elevation: 0,
-                        shadowColor: const Color(0xFFD4A84A).withValues(alpha: 0.3),
                       ),
                       child: Text(
                         _currentPage == 0
@@ -186,15 +183,12 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     );
   }
 
-  // ─────────────────────────────────────────────
-  // SCREEN ONE — Welcome Home
-  // Image 1: Diocese banner with blur + overlay + vignette
-  // ─────────────────────────────────────────────
+  // PAGE ONE — Welcome Home
   Widget _buildWelcomeScreen() {
     return Stack(
       fit: StackFit.expand,
       children: [
-        // Background image with blur + desaturation
+        // Background image with blur
         ImageFiltered(
           imageFilter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
           child: ColorFiltered(
@@ -205,14 +199,14 @@ class _OnboardingScreenState extends State<OnboardingScreen>
               0, 0, 0, 1, 0,
             ]),
             child: Image.asset(
-              'assets/images/makeni_cathedral.png',
+              'assets/images/gpt_crops/cathedral_hero.png',
               fit: BoxFit.fitWidth,
               alignment: const Alignment(0.0, -0.15),
             ),
           ),
         ),
 
-        // Dark gradient overlay (top dark, center bright, bottom dark)
+        // Dark gradient overlay
         Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -244,7 +238,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
           ),
         ),
 
-        // Content with fade-in animation
+        // Content
         FadeTransition(
           opacity: _fadeAnimation,
           child: SafeArea(
@@ -254,7 +248,6 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                 children: [
                   const Spacer(flex: 3),
 
-                  // "Welcome to" — Lora, subtle
                   Text(
                     'Welcome to',
                     textAlign: TextAlign.center,
@@ -266,7 +259,6 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                   ),
                   const SizedBox(height: 12),
 
-                  // "Makeni Prayer Book" — Playfair Display, elegant
                   const Text(
                     'Makeni\nPrayer Book',
                     textAlign: TextAlign.center,
@@ -280,7 +272,6 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                   ),
                   const SizedBox(height: 10),
 
-                  // "Catholic Companion" — Poppins, gold
                   Text(
                     'Catholic Companion',
                     textAlign: TextAlign.center,
@@ -294,7 +285,6 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                   ),
                   const SizedBox(height: 32),
 
-                  // Description — Lora
                   Text(
                     'Bringing the treasured prayers, hymns\nand traditions of the Diocese of Makeni\ninto a beautiful digital experience.',
                     textAlign: TextAlign.center,
@@ -316,10 +306,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     );
   }
 
-  // ─────────────────────────────────────────────
-  // SCREEN TWO — A Message From Our Bishop
-  // Image 2: Bishop portrait, personal and warm
-  // ─────────────────────────────────────────────
+  // PAGE TWO — A Message From Our Bishop
   Widget _buildBishopScreen() {
     return Container(
       color: const Color(0xFF0A1628),
@@ -332,7 +319,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
               children: [
                 const Spacer(flex: 2),
 
-                // Bishop portrait — large, centered, premium
+                // Bishop portrait
                 Container(
                   width: 180,
                   height: 220,
@@ -354,7 +341,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(24),
                     child: Image.asset(
-                      'assets/images/bishop_koroma.png',
+                      'assets/images/gpt_crops/bishop_portrait.png',
                       fit: BoxFit.cover,
                       alignment: const Alignment(0.0, -0.1),
                     ),
@@ -363,9 +350,8 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
                 const SizedBox(height: 40),
 
-                // Title — Playfair Display
                 const Text(
-                  'A Welcome from Our Bishop',
+                  'A Message of Welcome',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: 'Playfair Display',
@@ -378,9 +364,8 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
                 const SizedBox(height: 24),
 
-                // Message — Lora, italic, elegant
                 Text(
-                  '"Welcome to the Makeni Prayer Book:\nCatholic Companion. May this application\naccompany you in prayer wherever you are."',
+                  '"May this application accompany\nyou in prayer, deepen your faith,\nand help you grow closer to\nChrist wherever you are."',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: 'Lora',
@@ -393,7 +378,6 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
                 const SizedBox(height: 20),
 
-                // Blessing
                 Text(
                   'May God bless you.',
                   textAlign: TextAlign.center,
@@ -407,7 +391,6 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
                 const SizedBox(height: 8),
 
-                // Signature — Poppins
                 Text(
                   '+ Bishop of Makeni',
                   textAlign: TextAlign.center,
@@ -428,154 +411,128 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     );
   }
 
-  // ─────────────────────────────────────────────
-  // SCREEN THREE — One Church. One Faith. One Family.
-  // Image 3: Community/clergy photo with blur + overlay
-  // ─────────────────────────────────────────────
+  // PAGE THREE — Key Features
   Widget _buildCommunityScreen() {
     final features = [
-      'Offline Prayer Book',
-      'Smart Search',
-      'Quick Jump',
-      'Bookmarks',
-      'Daily Prayer',
+      ('Offline Access', 'Pray anywhere, anytime', Icons.cloud_off_outlined),
+      ('Powerful Search', 'Find any prayer in seconds', Icons.search),
+      ('Quick Jump', 'Go to any hymn or prayer', Icons.flash_on_outlined),
+      ('Daily Inspiration', 'Grow in faith every day', Icons.wb_sunny_outlined),
+      ('Bookmarks & Notes', 'Save and reflect', Icons.bookmark_outline),
     ];
 
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        // Background image with blur + desaturation
-        ImageFiltered(
-          imageFilter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-          child: ColorFiltered(
-            colorFilter: const ColorFilter.matrix([
-              0.70, 0.15, 0.10, 0, 0,
-              0.10, 0.70, 0.10, 0, 0,
-              0.10, 0.10, 0.75, 0, 0,
-              0, 0, 0, 1, 0,
-            ]),
-            child: Image.asset(
-              'assets/images/makeni_clergy.png',
-              fit: BoxFit.fitWidth,
-              alignment: Alignment.center,
-            ),
-          ),
-        ),
+    return Container(
+      color: const Color(0xFF0A1628),
+      child: FadeTransition(
+        opacity: _fadeAnimation,
+        child: SafeArea(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 36),
+            child: Column(
+              children: [
+                const SizedBox(height: 40),
 
-        // Dark overlay
-        Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                const Color(0xFF0A1628).withValues(alpha: 0.75),
-                const Color(0xFF0A1628).withValues(alpha: 0.55),
-                const Color(0xFF0A1628).withValues(alpha: 0.85),
+                // Diocese crest
+                Container(
+                  width: 64,
+                  height: 64,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: const Color(0xFFD4A84A).withValues(alpha: 0.4),
+                      width: 1.5,
+                    ),
+                  ),
+                  child: ClipOval(
+                    child: Image.asset(
+                      'assets/images/gpt_crops/diocese_crest.png',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 24),
+
+                const Text(
+                  'Rooted in Heritage\nBuilt for You',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'Playfair Display',
+                    fontSize: 26,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                    height: 1.3,
+                  ),
+                ),
+
+                const SizedBox(height: 16),
+
+                Text(
+                  'The Makeni Prayer Book has been a\ncompanion of faith for generations.\nThis digital edition preserves our\ntradition while making it accessible\nto all, everywhere.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'Lora',
+                    fontSize: 14,
+                    color: Colors.white.withValues(alpha: 0.65),
+                    height: 1.7,
+                  ),
+                ),
+
+                const SizedBox(height: 32),
+
+                // Feature list
+                ...features.map((f) => Padding(
+                      padding: const EdgeInsets.only(bottom: 16),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 40,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF0A3D62).withValues(alpha: 0.5),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Icon(
+                              f.$3,
+                              size: 20,
+                              color: const Color(0xFFD4A84A),
+                            ),
+                          ),
+                          const SizedBox(width: 14),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  f.$1,
+                                  style: TextStyle(
+                                    fontFamily: 'Poppins',
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.white.withValues(alpha: 0.9),
+                                  ),
+                                ),
+                                Text(
+                                  f.$2,
+                                  style: TextStyle(
+                                    fontFamily: 'Poppins',
+                                    fontSize: 12,
+                                    color: Colors.white.withValues(alpha: 0.5),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    )),
+
+                const SizedBox(height: 40),
               ],
-              stops: const [0.0, 0.4, 1.0],
             ),
           ),
         ),
-
-        // Content with fade-in animation
-        FadeTransition(
-          opacity: _fadeAnimation,
-          child: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 36),
-              child: Column(
-                children: [
-                  const Spacer(flex: 2),
-
-                  // "One Church / One Faith / One Family" — Playfair Display
-                  const Text(
-                    'One Church',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: 'Playfair Display',
-                      fontSize: 30,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                    ),
-                  ),
-                  const Text(
-                    'One Faith',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: 'Playfair Display',
-                      fontSize: 30,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                    ),
-                  ),
-                  const Text(
-                    'One Family',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: 'Playfair Display',
-                      fontSize: 30,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                    ),
-                  ),
-
-                  const SizedBox(height: 24),
-
-                  // Description — Lora
-                  Text(
-                    'This application serves the faithful\nof the Diocese of Makeni by making\nprayer, hymns and worship accessible\nanytime and anywhere.',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: 'Lora',
-                      fontSize: 14,
-                      color: Colors.white.withValues(alpha: 0.65),
-                      height: 1.7,
-                    ),
-                  ),
-
-                  const SizedBox(height: 32),
-
-                  // Feature checkmarks — Poppins
-                  ...features.map((f) => Padding(
-                        padding: const EdgeInsets.only(bottom: 12),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: 20,
-                              height: 20,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: const Color(0xFFD4A84A).withValues(alpha: 0.15),
-                              ),
-                              child: const Icon(
-                                Icons.check,
-                                size: 12,
-                                color: Color(0xFFD4A84A),
-                              ),
-                            ),
-                            const SizedBox(width: 12),
-                            Text(
-                              f,
-                              style: TextStyle(
-                                fontFamily: 'Poppins',
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.white.withValues(alpha: 0.85),
-                              ),
-                            ),
-                          ],
-                        ),
-                      )),
-
-                  const Spacer(flex: 3),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ],
+      ),
     );
   }
 }

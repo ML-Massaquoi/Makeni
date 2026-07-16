@@ -36,35 +36,64 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 20),
-              const Text(
-                'Settings',
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.textPrimary,
-                ),
+    return SafeArea(
+      child: Column(
+        children: [
+          _buildAppBar(context),
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 8),
+                  _buildThemeSection(),
+                  const SizedBox(height: 24),
+                  _buildFontSection(),
+                  const SizedBox(height: 24),
+                  _buildRemindersSection(),
+                  const SizedBox(height: 24),
+                  _buildAboutSection(),
+                  const SizedBox(height: 40),
+                ],
               ),
-              const SizedBox(height: 24),
-              _buildThemeSection(),
-              const SizedBox(height: 24),
-              _buildFontSection(),
-              const SizedBox(height: 24),
-              _buildRemindersSection(),
-              const SizedBox(height: 24),
-              _buildAboutSection(),
-              const SizedBox(height: 40),
-            ],
+            ),
           ),
-        ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAppBar(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(8, 8, 12, 0),
+      child: Row(
+        children: [
+          IconButton(
+            icon: const Icon(Icons.menu_rounded, size: 26),
+            color: AppColors.textPrimary,
+            onPressed: () => Scaffold.of(context).openDrawer(),
+          ),
+          const SizedBox(width: 4),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(6),
+            child: Image.asset(
+              'assets/images/makeni_crest.png',
+              width: 28,
+              height: 28,
+              fit: BoxFit.cover,
+            ),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              'Settings',
+              style: AppTypography.heading3.copyWith(
+                color: AppColors.textPrimary,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -115,13 +144,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(label,
-                      style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.textPrimary)),
+                      style: AppTypography.labelLarge.copyWith(
+                        color: AppColors.textPrimary,
+                      )),
                   Text(description,
-                      style: const TextStyle(
-                          fontSize: 12, color: AppColors.textSecondary)),
+                      style: AppTypography.caption.copyWith(
+                        color: AppColors.textSecondary,
+                      )),
                 ],
               ),
             ),
@@ -148,10 +177,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   const Icon(Icons.text_fields, color: AppColors.textSecondary, size: 18),
                   Text(
                     '${(_fontScale * 100).round()}%',
-                    style: const TextStyle(
-                        fontSize: 14,
-                        color: AppColors.textSecondary,
-                        fontWeight: FontWeight.w500),
+                    style: AppTypography.caption.copyWith(
+                      color: AppColors.textSecondary,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                   const Icon(Icons.text_fields, color: AppColors.textSecondary, size: 26),
                 ],
@@ -167,8 +196,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
               const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('A', style: TextStyle(fontSize: 12, color: AppColors.textTertiary)),
-                  Text('A', style: TextStyle(fontSize: 24, color: AppColors.textTertiary)),
+                  Text('A', style: TextStyle(fontSize: 12, color: AppColors.textTertiary, fontFamily: 'Poppins')),
+                  Text('A', style: TextStyle(fontSize: 24, color: AppColors.textTertiary, fontFamily: 'Poppins')),
                 ],
               ),
             ],
@@ -199,19 +228,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       color: AppColors.primary, size: 22),
                 ),
                 const SizedBox(width: Spacing.lg),
-                const Expanded(
+                Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Prayer Reminders',
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.textPrimary)),
-                      SizedBox(height: 2),
+                          style: AppTypography.labelLarge.copyWith(
+                            color: AppColors.textPrimary,
+                          )),
+                      const SizedBox(height: 2),
                       Text('Schedule daily prayer notifications',
-                          style: TextStyle(
-                              fontSize: 12, color: AppColors.textSecondary)),
+                          style: AppTypography.caption.copyWith(
+                            color: AppColors.textSecondary,
+                          )),
                     ],
                   ),
                 ),
@@ -243,19 +272,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
               const SizedBox(width: Spacing.lg),
-              const Expanded(
+              Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text('Rev. Dr. Bob John Hassan Koroma',
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.textPrimary)),
-                    SizedBox(height: 2),
+                        style: AppTypography.labelLarge.copyWith(
+                          color: AppColors.textPrimary,
+                          fontWeight: FontWeight.w600,
+                        )),
+                    const SizedBox(height: 2),
                     Text('Bishop of Makeni Diocese',
-                        style: TextStyle(
-                            fontSize: 12, color: AppColors.textSecondary)),
+                        style: AppTypography.caption.copyWith(
+                          color: AppColors.textSecondary,
+                        )),
                   ],
                 ),
               ),
@@ -277,16 +307,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
       padding: const EdgeInsets.symmetric(
           horizontal: Spacing.lg, vertical: Spacing.md),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(label,
-              style: const TextStyle(
-                  fontSize: 14, color: AppColors.textSecondary)),
-          Text(value,
-              style: const TextStyle(
-                  fontSize: 14,
-                  color: AppColors.textPrimary,
-                  fontWeight: FontWeight.w500)),
+              style: AppTypography.bodyMedium.copyWith(
+                color: AppColors.textSecondary,
+              )),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Text(
+              value,
+              textAlign: TextAlign.end,
+              style: AppTypography.labelLarge.copyWith(
+                color: AppColors.textPrimary,
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -303,10 +338,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
           padding: const EdgeInsets.only(left: 4, bottom: 12),
           child: Text(
             title,
-            style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
+            style: AppTypography.labelSmall.copyWith(
               color: AppColors.textSecondary,
+              fontWeight: FontWeight.w600,
               letterSpacing: 0.3,
             ),
           ),

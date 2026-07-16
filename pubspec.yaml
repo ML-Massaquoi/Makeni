@@ -45,5 +45,6 @@ flutter:
   assets:
     - assets/data/
     - assets/images/
+    - assets/images/gpt_crops/
     - assets/icons/
     - assets/fonts/

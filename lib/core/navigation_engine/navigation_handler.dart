@@ -10,7 +10,11 @@ import '../../features/splash/presentation/splash_screen.dart';
 import '../../features/onboarding/presentation/onboarding_screen.dart';
 import '../../features/workspace/presentation/workspace_screen.dart';
 import '../../features/settings/presentation/settings_screen.dart';
+import '../../features/about/presentation/about_screen.dart';
+import '../config/app_colors.dart';
 import '../config/routes.dart';
+import '../design_system/app_typography.dart';
+import 'app_drawer.dart';
 
 class NavigationHandler {
   static final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -78,6 +82,10 @@ class NavigationHandler {
         path: Routes.rosary,
         builder: (context, state) => const RosaryScreen(),
       ),
+      GoRoute(
+        path: Routes.about,
+        builder: (context, state) => const AboutScreen(),
+      ),
     ],
   );
 }
@@ -91,41 +99,154 @@ class MainShell extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: child,
-      bottomNavigationBar: _MainBottomNav(),
+      drawer: const AppDrawer(),
+      bottomNavigationBar: const _MainBottomNav(),
     );
   }
 }
 
 class _MainBottomNav extends StatelessWidget {
+  const _MainBottomNav();
+
   @override
   Widget build(BuildContext context) {
     final location = GoRouterState.of(context).uri.toString();
 
     int currentIndex = 0;
-    if (location.startsWith(Routes.library)) currentIndex = 1;
-    if (location.startsWith(Routes.search)) currentIndex = 2;
+    if (location.startsWith(Routes.search)) currentIndex = 1;
+    if (location.startsWith(Routes.rosary)) currentIndex = 2;
     if (location.startsWith(Routes.workspace)) currentIndex = 3;
+    // index 4 = More (drawer)
 
-    return NavigationBar(
-      selectedIndex: currentIndex,
-      onDestinationSelected: (index) {
-        switch (index) {
-          case 0:
-            context.go(Routes.home);
-          case 1:
-            context.go(Routes.library);
-          case 2:
-            context.go(Routes.search);
-          case 3:
-            context.go(Routes.workspace);
-        }
-      },
-      destinations: const [
-        NavigationDestination(icon: Icon(Icons.home_outlined), selectedIcon: Icon(Icons.home), label: 'Home'),
-        NavigationDestination(icon: Icon(Icons.search), selectedIcon: Icon(Icons.search), label: 'Search'),
-        NavigationDestination(icon: Icon(Icons.book_outlined), selectedIcon: Icon(Icons.book), label: 'Prayer Book'),
-        NavigationDestination(icon: Icon(Icons.bookmark_outline), selectedIcon: Icon(Icons.bookmark), label: 'Bookmarks'),
-      ],
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.surface,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.06),
+            blurRadius: 12,
+            offset: const Offset(0, -2),
+          ),
+        ],
+      ),
+      child: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _NavItem(
+                icon: Icons.home_outlined,
+                activeIcon: Icons.home_rounded,
+                label: 'Home',
+                isActive: currentIndex == 0,
+                onTap: () => context.go(Routes.home),
+              ),
+              _NavItem(
+                icon: Icons.search,
+                activeIcon: Icons.search_rounded,
+                label: 'Search',
+                isActive: currentIndex == 1,
+                onTap: () => context.go(Routes.search),
+              ),
+              _NavItem(
+                icon: Icons.circle_outlined,
+                activeIcon: Icons.circle,
+                label: 'Devotions',
+                isActive: currentIndex == 2,
+                onTap: () => context.go(Routes.rosary),
+              ),
+              _NavItem(
+                icon: Icons.bookmark_outline,
+                activeIcon: Icons.bookmark_rounded,
+                label: 'Bookmarks',
+                isActive: currentIndex == 3,
+                onTap: () => context.go(Routes.workspace),
+              ),
+              _NavItem(
+                icon: Icons.more_horiz_rounded,
+                activeIcon: Icons.more_horiz_rounded,
+                label: 'More',
+                isActive: currentIndex == 4,
+                onTap: () {
+                  final scaffold = Scaffold.of(context);
+                  if (scaffold.isDrawerOpen) {
+                    Navigator.pop(context);
+                  } else {
+                    scaffold.openDrawer();
+                  }
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _NavItem extends StatelessWidget {
+  final IconData icon;
+  final IconData activeIcon;
+  final String label;
+  final bool isActive;
+  final VoidCallback onTap;
+
+  const _NavItem({
+    required this.icon,
+    required this.activeIcon,
+    required this.label,
+    required this.isActive,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      behavior: HitTestBehavior.opaque,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+        decoration: BoxDecoration(
+          color: isActive ? AppColors.primary.withValues(alpha: 0.08) : Colors.transparent,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 200),
+              child: Icon(
+                isActive ? activeIcon : icon,
+                key: ValueKey(isActive),
+                size: 24,
+                color: isActive ? AppColors.primary : AppColors.textTertiary,
+              ),
+            ),
+            const SizedBox(height: 3),
+            Text(
+              label,
+              style: AppTypography.caption.copyWith(
+                fontSize: 10,
+                fontWeight: isActive ? FontWeight.w600 : FontWeight.w500,
+                color: isActive ? AppColors.primary : AppColors.textTertiary,
+              ),
+            ),
+            if (isActive) ...[
+              const SizedBox(height: 3),
+              Container(
+                width: 16,
+                height: 3,
+                decoration: BoxDecoration(
+                  color: AppColors.accent,
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+            ],
+          ],
+        ),
+      ),
     );
   }
 }

@@ -14,4 +14,5 @@ class Routes {
   static const String readerHymn = '/reader/hymn';
   static const String readerSection = '/reader/section';
   static const String rosary = '/rosary';
+  static const String about = '/about';
 }

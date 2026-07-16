@@ -39,7 +39,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
   Future<void> _addTime() async {
     final time = await showTimePicker(
       context: context,
-      initialTime: TimeOfDay(hour: 7, minute: 0),
+      initialTime: const TimeOfDay(hour: 7, minute: 0),
     );
     if (time == null) return;
     final formatted = '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
@@ -97,12 +97,10 @@ class _RemindersScreenState extends State<RemindersScreen> {
                     icon: const Icon(Icons.arrow_back_ios_new),
                     color: AppColors.textPrimary,
                   ),
-                  const Expanded(
+                  Expanded(
                     child: Text(
                       'Prayer Reminders',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
+                      style: AppTypography.heading3.copyWith(
                         color: AppColors.textPrimary,
                       ),
                     ),
@@ -142,33 +140,30 @@ class _RemindersScreenState extends State<RemindersScreen> {
             width: 44,
             height: 44,
             decoration: BoxDecoration(
-              color: AppColors.accent.withValues(alpha: 0.1),
+              color: AppColors.primary.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(Spacing.radiusMd),
             ),
             child: const Icon(
               Icons.notifications_outlined,
-              color: AppColors.accent,
+              color: AppColors.primary,
               size: 22,
             ),
           ),
           const SizedBox(width: Spacing.lg),
-          const Expanded(
+          Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   'Daily Reminders',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
+                  style: AppTypography.labelLarge.copyWith(
                     color: AppColors.textPrimary,
                   ),
                 ),
-                SizedBox(height: 2),
+                const SizedBox(height: 2),
                 Text(
                   'Get notified at your prayer times',
-                  style: TextStyle(
-                    fontSize: 12,
+                  style: AppTypography.caption.copyWith(
                     color: AppColors.textSecondary,
                   ),
                 ),
@@ -178,7 +173,7 @@ class _RemindersScreenState extends State<RemindersScreen> {
           Switch(
             value: _enabled,
             onChanged: _toggle,
-            activeColor: AppColors.accent,
+            activeThumbColor: AppColors.primary,
           ),
         ],
       ),
@@ -196,10 +191,12 @@ class _RemindersScreenState extends State<RemindersScreen> {
                   size: 48,
                   color: AppColors.textTertiary.withValues(alpha: 0.4)),
               const SizedBox(height: 12),
-              const Text(
+              Text(
                 'No reminders set.\nTap below to add your prayer times.',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 14, color: AppColors.textTertiary),
+                style: AppTypography.bodyMedium.copyWith(
+                  color: AppColors.textTertiary,
+                ),
               ),
             ],
           ),
@@ -210,12 +207,11 @@ class _RemindersScreenState extends State<RemindersScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           'Your Prayer Times',
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
+          style: AppTypography.labelSmall.copyWith(
             color: AppColors.textSecondary,
+            fontWeight: FontWeight.w600,
           ),
         ),
         const SizedBox(height: 12),
@@ -253,16 +249,13 @@ class _RemindersScreenState extends State<RemindersScreen> {
                         children: [
                           Text(
                             _timeLabel(time),
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
+                            style: AppTypography.labelLarge.copyWith(
                               color: AppColors.textPrimary,
                             ),
                           ),
                           Text(
                             _prayerLabel(time),
-                            style: const TextStyle(
-                              fontSize: 12,
+                            style: AppTypography.caption.copyWith(
                               color: AppColors.textSecondary,
                             ),
                           ),

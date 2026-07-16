@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  // Makeni Design System
+  // Makeni Design System — Blue & White Theme
   static const Color primary = Color(0xFF0A3D62);      // Cathedral Blue
   static const Color primaryLight = Color(0xFF1A5A8A);
   static const Color primaryDark = Color(0xFF062A45);
-  static const Color accent = Color(0xFFD4A84A);        // Warm Gold
+  static const Color accent = Color(0xFFD4A84A);        // Warm Gold (accent only)
   static const Color accentLight = Color(0xFFE8C97A);
   static const Color palmGreen = Color(0xFF1E7A4F);     // Palm Green
   static const Color earthBrown = Color(0xFF8B6914);    // Earth Brown

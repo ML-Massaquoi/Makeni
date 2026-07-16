@@ -17,39 +17,30 @@ class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
   bool _navigating = false;
 
-  // Master fade (black → visible)
   late AnimationController _masterController;
   late Animation<double> _masterFade;
 
-  // Background fade (appears at 0ms, fully visible by 300ms)
   late AnimationController _bgController;
   late Animation<double> _bgFade;
 
-  // Logo / crest fade (starts at 700ms)
   late AnimationController _logoController;
   late Animation<double> _logoFade;
 
-  // Title text fade (starts at 1100ms)
   late AnimationController _titleController;
   late Animation<double> _titleFade;
 
-  // Subtitle text fade (starts at 1500ms)
   late AnimationController _subtitleController;
   late Animation<double> _subtitleFade;
 
-  // "Welcome Home" fade (starts at 1800ms)
-  late AnimationController _welcomeController;
-  late Animation<double> _welcomeFade;
+  late AnimationController _taglineController;
+  late Animation<double> _taglineFade;
 
-  // Breathing dots (starts at 2000ms)
   late AnimationController _dotController;
 
-  // "Light of Hope" beam (2–3s subtle warm light sweep)
   late AnimationController _lightController;
   late Animation<double> _lightPosition;
   late Animation<double> _lightOpacity;
 
-  // Navigation fade-out
   late AnimationController _navFadeController;
   late Animation<double> _navFade;
 
@@ -57,7 +48,6 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
 
-    // --- Master fade: whole screen fades from black ---
     _masterController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 600),
@@ -67,7 +57,6 @@ class _SplashScreenState extends State<SplashScreen>
       curve: Curves.easeOut,
     );
 
-    // --- Background: fades in from 0 → 300ms ---
     _bgController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 800),
@@ -77,7 +66,6 @@ class _SplashScreenState extends State<SplashScreen>
       curve: Curves.easeOut,
     );
 
-    // --- Logo: fades in starting at ~700ms ---
     _logoController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 600),
@@ -87,7 +75,6 @@ class _SplashScreenState extends State<SplashScreen>
       curve: Curves.easeOut,
     );
 
-    // --- Title: fades in starting at ~1100ms ---
     _titleController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),
@@ -97,7 +84,6 @@ class _SplashScreenState extends State<SplashScreen>
       curve: Curves.easeOut,
     );
 
-    // --- Subtitle: fades in starting at ~1500ms ---
     _subtitleController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),
@@ -107,23 +93,20 @@ class _SplashScreenState extends State<SplashScreen>
       curve: Curves.easeOut,
     );
 
-    // --- Welcome Home: fades in starting at ~1800ms ---
-    _welcomeController = AnimationController(
+    _taglineController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),
     );
-    _welcomeFade = CurvedAnimation(
-      parent: _welcomeController,
+    _taglineFade = CurvedAnimation(
+      parent: _taglineController,
       curve: Curves.easeOut,
     );
 
-    // --- Breathing dots: 3-cycle repeating pattern ---
     _dotController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 2400),
     )..repeat();
 
-    // --- Light of Hope beam: subtle warm light sweep ---
     _lightController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 3000),
@@ -140,7 +123,6 @@ class _SplashScreenState extends State<SplashScreen>
       TweenSequenceItem(tween: Tween(begin: 0.12, end: 0.0), weight: 30),
     ]).animate(_lightController);
 
-    // --- Navigation fade-out ---
     _navFadeController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),
@@ -154,40 +136,32 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   Future<void> _startAnimationSequence() async {
-    // 0ms: Start master fade from black
     _masterController.forward();
 
-    // 300ms: Background starts appearing
     await Future.delayed(const Duration(milliseconds: 300));
     if (!mounted) return;
     _bgController.forward();
 
-    // 700ms: Logo fades in
     await Future.delayed(const Duration(milliseconds: 400));
     if (!mounted) return;
     _logoController.forward();
 
-    // 1100ms: Title appears
     await Future.delayed(const Duration(milliseconds: 400));
     if (!mounted) return;
     _titleController.forward();
 
-    // 1500ms: Subtitle fades in
     await Future.delayed(const Duration(milliseconds: 400));
     if (!mounted) return;
     _subtitleController.forward();
 
-    // 1800ms: "Welcome Home" fades in
     await Future.delayed(const Duration(milliseconds: 300));
     if (!mounted) return;
-    _welcomeController.forward();
+    _taglineController.forward();
 
-    // 2000ms: Breathing dots begin + Light of Hope beam starts
     await Future.delayed(const Duration(milliseconds: 200));
     if (!mounted) return;
     _lightController.forward();
 
-    // Navigate after 4 seconds total from start
     await Future.delayed(const Duration(milliseconds: 2000));
     if (!mounted || _navigating) return;
     _navigate();
@@ -195,8 +169,6 @@ class _SplashScreenState extends State<SplashScreen>
 
   Future<void> _navigate() async {
     _navigating = true;
-
-    // Fade out navigation
     _navFadeController.forward();
 
     await Future.delayed(const Duration(milliseconds: 500));
@@ -217,7 +189,7 @@ class _SplashScreenState extends State<SplashScreen>
     _logoController.dispose();
     _titleController.dispose();
     _subtitleController.dispose();
-    _welcomeController.dispose();
+    _taglineController.dispose();
     _dotController.dispose();
     _lightController.dispose();
     _navFadeController.dispose();
@@ -227,7 +199,7 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: const Color(0xFF0A1628),
       body: AnimatedBuilder(
         animation: _masterFade,
         builder: (context, child) {
@@ -238,7 +210,7 @@ class _SplashScreenState extends State<SplashScreen>
               child: Stack(
                 fit: StackFit.expand,
                 children: [
-                  // --- Cathedral background image (Image 1: Diocese banner) ---
+                  // Cathedral background image
                   FadeTransition(
                     opacity: _bgFade,
                     child: ImageFiltered(
@@ -251,7 +223,7 @@ class _SplashScreenState extends State<SplashScreen>
                           0, 0, 0, 1, 0,
                         ]),
                         child: Image.asset(
-                          'assets/images/makeni_cathedral_hero.png',
+                          'assets/images/gpt_crops/cathedral_hero.png',
                           fit: BoxFit.fitWidth,
                           width: double.infinity,
                           height: double.infinity,
@@ -261,24 +233,24 @@ class _SplashScreenState extends State<SplashScreen>
                     ),
                   ),
 
-                  // --- Soft dark gradient overlay (center bright, edges dark) ---
+                  // Dark gradient overlay
                   Container(
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                          Colors.black.withValues(alpha: 0.25),
-                          Colors.black.withValues(alpha: 0.10),
-                          Colors.black.withValues(alpha: 0.10),
-                          Colors.black.withValues(alpha: 0.55),
+                          const Color(0xFF0A1628).withValues(alpha: 0.3),
+                          const Color(0xFF0A1628).withValues(alpha: 0.1),
+                          const Color(0xFF0A1628).withValues(alpha: 0.15),
+                          const Color(0xFF0A1628).withValues(alpha: 0.6),
                         ],
                         stops: const [0.0, 0.3, 0.55, 1.0],
                       ),
                     ),
                   ),
 
-                  // --- Vignette: darken edges, keep center bright ---
+                  // Vignette
                   Container(
                     decoration: BoxDecoration(
                       gradient: RadialGradient(
@@ -286,14 +258,14 @@ class _SplashScreenState extends State<SplashScreen>
                         radius: 1.0,
                         colors: [
                           Colors.transparent,
-                          Colors.black.withValues(alpha: 0.35),
+                          const Color(0xFF0A1628).withValues(alpha: 0.35),
                         ],
                         stops: const [0.55, 1.0],
                       ),
                     ),
                   ),
 
-                  // --- "Light of Hope" warm beam animation ---
+                  // Light of Hope beam
                   AnimatedBuilder(
                     animation: _lightController,
                     builder: (context, child) {
@@ -310,13 +282,13 @@ class _SplashScreenState extends State<SplashScreen>
                     },
                   ),
 
-                  // --- Centered branding content ---
+                  // Centered branding content
                   SafeArea(
                     child: Column(
                       children: [
                         const Spacer(flex: 3),
 
-                        // Diocese crest / logo
+                        // Diocese crest
                         FadeTransition(
                           opacity: _logoFade,
                           child: _buildDioceseCrest(),
@@ -327,10 +299,10 @@ class _SplashScreenState extends State<SplashScreen>
                         // App name: "MAKENI PRAYER BOOK"
                         FadeTransition(
                           opacity: _titleFade,
-                          child: Text(
+                          child: const Text(
                             'MAKENI\nPRAYER BOOK',
                             textAlign: TextAlign.center,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontFamily: 'Playfair Display',
                               fontSize: 32,
                               fontWeight: FontWeight.w700,
@@ -346,10 +318,10 @@ class _SplashScreenState extends State<SplashScreen>
                         // Subtitle: "CATHOLIC COMPANION"
                         FadeTransition(
                           opacity: _subtitleFade,
-                          child: Text(
+                          child: const Text(
                             'CATHOLIC COMPANION',
                             textAlign: TextAlign.center,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontFamily: 'Poppins',
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
@@ -379,25 +351,26 @@ class _SplashScreenState extends State<SplashScreen>
 
                         const Spacer(flex: 2),
 
-                        // "Welcome Home."
+                        // Tagline: "Rooted in Faith. Inspired by Makeni."
                         FadeTransition(
-                          opacity: _welcomeFade,
+                          opacity: _taglineFade,
                           child: Text(
-                            'Welcome Home.',
+                            'Rooted in Faith. Inspired by Makeni.',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontFamily: 'Lora',
-                              fontSize: 18,
+                              fontSize: 14,
                               fontWeight: FontWeight.w400,
                               fontStyle: FontStyle.italic,
-                              color: Colors.white.withValues(alpha: 0.9),
+                              color: Colors.white.withValues(alpha: 0.8),
+                              letterSpacing: 0.5,
                             ),
                           ),
                         ),
 
                         const SizedBox(height: 32),
 
-                        // Breathing dots (● ○ ○ → ● ● ○ → ● ● ●)
+                        // Breathing dots
                         AnimatedBuilder(
                           animation: _dotController,
                           builder: (context, child) {
@@ -429,17 +402,15 @@ class _SplashScreenState extends State<SplashScreen>
     );
   }
 
-  /// Breathing pattern: ● ○ ○ → ● ● ○ → ● ● ● cycling
   double _getDotOpacity(int dotIndex) {
     final t = _dotController.value;
-    // 3 phases, each 0.33 of the cycle
     final phase = (t * 3).floor();
     switch (phase) {
-      case 0: // ● ○ ○
+      case 0:
         return dotIndex == 0 ? 1.0 : 0.2;
-      case 1: // ● ● ○
+      case 1:
         return dotIndex < 2 ? 1.0 : 0.2;
-      case 2: // ● ● ●
+      case 2:
         return 1.0;
       default:
         return 0.2;
@@ -470,7 +441,7 @@ class _SplashScreenState extends State<SplashScreen>
       ),
       child: ClipOval(
         child: Image.asset(
-          'assets/images/diocese_of_makeni.jpg',
+          'assets/images/gpt_crops/diocese_crest.png',
           fit: BoxFit.cover,
           errorBuilder: (context, error, stackTrace) {
             return Container(
@@ -491,8 +462,6 @@ class _SplashScreenState extends State<SplashScreen>
   }
 }
 
-/// Painter for the subtle "Light of Hope" warm beam animation.
-/// A soft column of warm golden light that slowly sweeps across the image.
 class _LightBeamPainter extends CustomPainter {
   final double position;
   final double opacity;
