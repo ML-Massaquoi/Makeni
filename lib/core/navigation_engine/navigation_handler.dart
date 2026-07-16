@@ -115,8 +115,7 @@ class _MainBottomNav extends StatelessWidget {
     int currentIndex = 0;
     if (location.startsWith(Routes.search)) currentIndex = 1;
     if (location.startsWith(Routes.rosary)) currentIndex = 2;
-    if (location.startsWith(Routes.workspace)) currentIndex = 3;
-    // index 4 = More (drawer)
+    if (location.startsWith(Routes.library)) currentIndex = 3;
 
     return Container(
       decoration: BoxDecoration(
@@ -131,7 +130,7 @@ class _MainBottomNav extends StatelessWidget {
       ),
       child: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+          padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 2),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -157,25 +156,18 @@ class _MainBottomNav extends StatelessWidget {
                 onTap: () => context.go(Routes.rosary),
               ),
               _NavItem(
-                icon: Icons.bookmark_outline,
-                activeIcon: Icons.bookmark_rounded,
-                label: 'Bookmarks',
+                icon: Icons.menu_book_outlined,
+                activeIcon: Icons.menu_book_rounded,
+                label: 'Library',
                 isActive: currentIndex == 3,
-                onTap: () => context.go(Routes.workspace),
+                onTap: () => context.go(Routes.library),
               ),
               _NavItem(
                 icon: Icons.more_horiz_rounded,
                 activeIcon: Icons.more_horiz_rounded,
                 label: 'More',
                 isActive: currentIndex == 4,
-                onTap: () {
-                  final scaffold = Scaffold.of(context);
-                  if (scaffold.isDrawerOpen) {
-                    Navigator.pop(context);
-                  } else {
-                    scaffold.openDrawer();
-                  }
-                },
+                onTap: () => Scaffold.of(context).openDrawer(),
               ),
             ],
           ),
@@ -207,10 +199,10 @@ class _NavItem extends StatelessWidget {
       behavior: HitTestBehavior.opaque,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
         decoration: BoxDecoration(
           color: isActive ? AppColors.primary.withValues(alpha: 0.08) : Colors.transparent,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(14),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -220,24 +212,24 @@ class _NavItem extends StatelessWidget {
               child: Icon(
                 isActive ? activeIcon : icon,
                 key: ValueKey(isActive),
-                size: 24,
+                size: 22,
                 color: isActive ? AppColors.primary : AppColors.textTertiary,
               ),
             ),
-            const SizedBox(height: 3),
+            const SizedBox(height: 2),
             Text(
               label,
               style: AppTypography.caption.copyWith(
-                fontSize: 10,
+                fontSize: 9,
                 fontWeight: isActive ? FontWeight.w600 : FontWeight.w500,
                 color: isActive ? AppColors.primary : AppColors.textTertiary,
               ),
             ),
             if (isActive) ...[
-              const SizedBox(height: 3),
+              const SizedBox(height: 2),
               Container(
-                width: 16,
-                height: 3,
+                width: 14,
+                height: 2.5,
                 decoration: BoxDecoration(
                   color: AppColors.accent,
                   borderRadius: BorderRadius.circular(2),
