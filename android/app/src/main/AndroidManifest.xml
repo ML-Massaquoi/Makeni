@@ -2,7 +2,7 @@
     <uses-permission android:minSdkVersion="33" android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <application
-        android:label="Makeni Prayer Book"
+        android:label="Makeni Prayer &amp; Hymn"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

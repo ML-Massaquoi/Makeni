@@ -150,7 +150,7 @@ class HomeScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Makeni Prayer Book',
+                            'Makeni Prayer & Hymn Book',
                             style: TextStyle(
                               fontFamily: 'Poppins',
                               fontSize: 15,

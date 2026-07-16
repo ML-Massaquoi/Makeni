@@ -127,7 +127,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                     const SizedBox(width: 10),
                     const Expanded(
                       child: Text(
-                        'Prayer Book',
+                        'Prayer & Hymn Book',
                         style: TextStyle(
                           fontFamily: 'Playfair Display',
                           fontSize: 20,
@@ -180,7 +180,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                       ),
                       SizedBox(height: 4),
                       Text(
-                        'Browse the complete Makeni Prayer Book',
+                        'Browse the complete Makeni Prayer and Hymn Book',
                         style: TextStyle(
                           fontFamily: 'Poppins',
                           fontSize: 13,

@@ -99,7 +99,7 @@ class AboutScreen extends StatelessWidget {
                       const SizedBox(height: 14),
                       const Center(
                         child: Text(
-                          'MAKENI PRAYER BOOK',
+                          'MAKENI\nPRAYER & HYMN BOOK',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontFamily: 'Playfair Display',

@@ -260,7 +260,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                   const SizedBox(height: 12),
 
                   const Text(
-                    'Makeni\nPrayer Book',
+                    'Makeni\nPrayer & Hymn Book',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: 'Playfair Display',
@@ -468,7 +468,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                 const SizedBox(height: 16),
 
                 Text(
-                  'The Makeni Prayer Book has been a\ncompanion of faith for generations.\nThis digital edition preserves our\ntradition while making it accessible\nto all, everywhere.',
+                  'The Makeni Prayer and Hymn Book has been a\ncompanion of faith for generations.\nThis digital edition preserves our\ntradition while making it accessible\nto all, everywhere.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: 'Lora',

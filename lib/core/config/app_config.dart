@@ -1,5 +1,5 @@
 class AppConfig {
-  static const String appName = 'Makeni Prayer Book';
+  static const String appName = 'Makeni Prayer and Hymn Book';
   static const String appSubtitle = 'Catholic Companion';
   static const String appVersion = '1.0.0';
   static const String bookId = 'makeni_prayer_book';

@@ -54,6 +54,10 @@ class NavigationHandler {
             path: Routes.settings,
             pageBuilder: (context, state) => const NoTransitionPage(child: SettingsScreen()),
           ),
+          GoRoute(
+            path: Routes.rosary,
+            pageBuilder: (context, state) => const NoTransitionPage(child: RosaryScreen()),
+          ),
         ],
       ),
       GoRoute(
@@ -77,10 +81,6 @@ class NavigationHandler {
       GoRoute(
         path: Routes.reminders,
         builder: (context, state) => const RemindersScreen(),
-      ),
-      GoRoute(
-        path: Routes.rosary,
-        builder: (context, state) => const RosaryScreen(),
       ),
       GoRoute(
         path: Routes.about,

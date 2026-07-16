@@ -42,7 +42,7 @@ class _MakeniPrayerBookAppState extends State<MakeniPrayerBookApp> {
     final theme = _themeNotifier.currentTheme;
 
     return MaterialApp.router(
-      title: 'Makeni Prayer Book',
+      title: 'Makeni Prayer and Hymn Book',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,

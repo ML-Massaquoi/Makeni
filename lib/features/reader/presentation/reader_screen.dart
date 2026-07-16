@@ -172,7 +172,7 @@ class ReaderScreenState extends State<ReaderScreen> with TickerProviderStateMixi
   void _shareContent() {
     final text = _content?.text ?? _hymn?.text ?? '';
     if (text.isEmpty) return;
-    Clipboard.setData(ClipboardData(text: '$_title\n\n$text\n\n— Makeni Prayer Book'));
+    Clipboard.setData(ClipboardData(text: '$_title\n\n$text\n\n— Makeni Prayer and Hymn Book'));
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(

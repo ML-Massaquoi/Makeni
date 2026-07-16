@@ -40,7 +40,7 @@ class ReminderService {
       await _plugin.periodicallyShow(
         id: hour * 100 + minute,
         title: 'Time to Pray',
-        body: 'Open your Makeni Prayer Book for $timeStr prayer.',
+        body: 'Open your Makeni Prayer & Hymn for $timeStr prayer.',
         repeatInterval: RepeatInterval.daily,
         notificationDetails: details,
         androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,

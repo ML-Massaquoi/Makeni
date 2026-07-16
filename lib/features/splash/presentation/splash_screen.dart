@@ -296,11 +296,11 @@ class _SplashScreenState extends State<SplashScreen>
 
                         const SizedBox(height: 28),
 
-                        // App name: "MAKENI PRAYER BOOK"
+                        // App name: "MAKENI PRAYER AND HYMN BOOK"
                         FadeTransition(
                           opacity: _titleFade,
                           child: const Text(
-                            'MAKENI\nPRAYER BOOK',
+                            'MAKENI\nPRAYER & HYMN BOOK',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontFamily: 'Playfair Display',

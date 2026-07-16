@@ -21,76 +21,83 @@ class AppDrawer extends StatelessWidget {
           child: Column(
             children: [
               _buildHeader(context),
-              const SizedBox(height: 8),
-              _buildMenuSection(
-                context,
-                title: 'Navigate',
-                items: [
-                  _DrawerItem(
-                    icon: Icons.home_outlined,
-                    label: 'Home',
-                    route: '/home',
-                    isActive: location.startsWith('/home'),
+              Expanded(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child: Column(
+                    children: [
+                      _buildMenuSection(
+                        context,
+                        title: 'Navigate',
+                        items: [
+                          _DrawerItem(
+                            icon: Icons.home_outlined,
+                            label: 'Home',
+                            route: '/home',
+                            isActive: location.startsWith('/home'),
+                          ),
+                          _DrawerItem(
+                            icon: Icons.menu_book_outlined,
+                            label: 'Library',
+                            route: '/library',
+                            isActive: location.startsWith('/library'),
+                          ),
+                          _DrawerItem(
+                            icon: Icons.search,
+                            label: 'Search',
+                            route: '/search',
+                            isActive: location.startsWith('/search') && !location.startsWith('/settings'),
+                          ),
+                          _DrawerItem(
+                            icon: Icons.bookmark_outline,
+                            label: 'Bookmarks',
+                            route: '/workspace',
+                            isActive: location.startsWith('/workspace'),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 4),
+                      _buildMenuSection(
+                        context,
+                        title: 'Devotions',
+                        items: [
+                          _DrawerItem(
+                            icon: Icons.circle_outlined,
+                            label: 'Rosary Guide',
+                            route: '/rosary',
+                            isActive: location.startsWith('/rosary'),
+                          ),
+                          _DrawerItem(
+                            icon: Icons.notifications_outlined,
+                            label: 'Prayer Reminders',
+                            route: '/reminders',
+                            isActive: location.startsWith('/reminders'),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 4),
+                      _buildMenuSection(
+                        context,
+                        title: 'App',
+                        items: [
+                          _DrawerItem(
+                            icon: Icons.settings_outlined,
+                            label: 'Settings',
+                            route: '/settings',
+                            isActive: location.startsWith('/settings'),
+                          ),
+                          _DrawerItem(
+                            icon: Icons.info_outline_rounded,
+                            label: 'About',
+                            route: '/about',
+                            isActive: location.startsWith('/about'),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                  _DrawerItem(
-                    icon: Icons.menu_book_outlined,
-                    label: 'Library',
-                    route: '/library',
-                    isActive: location.startsWith('/library'),
-                  ),
-                  _DrawerItem(
-                    icon: Icons.search,
-                    label: 'Search',
-                    route: '/search',
-                    isActive: location.startsWith('/search') && !location.startsWith('/settings'),
-                  ),
-                  _DrawerItem(
-                    icon: Icons.bookmark_outline,
-                    label: 'Bookmarks',
-                    route: '/workspace',
-                    isActive: location.startsWith('/workspace'),
-                  ),
-                ],
+                ),
               ),
-              const SizedBox(height: 8),
-              _buildMenuSection(
-                context,
-                title: 'Devotions',
-                items: [
-                  _DrawerItem(
-                    icon: Icons.circle_outlined,
-                    label: 'Rosary Guide',
-                    route: '/rosary',
-                    isActive: location.startsWith('/rosary'),
-                  ),
-                  _DrawerItem(
-                    icon: Icons.notifications_outlined,
-                    label: 'Prayer Reminders',
-                    route: '/reminders',
-                    isActive: location.startsWith('/reminders'),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 8),
-              _buildMenuSection(
-                context,
-                title: 'App',
-                items: [
-                  _DrawerItem(
-                    icon: Icons.settings_outlined,
-                    label: 'Settings',
-                    route: '/settings',
-                    isActive: location.startsWith('/settings'),
-                  ),
-                  _DrawerItem(
-                    icon: Icons.info_outline_rounded,
-                    label: 'About',
-                    route: '/about',
-                    isActive: location.startsWith('/about'),
-                  ),
-                ],
-              ),
-              const Spacer(),
               _buildFooter(),
             ],
           ),
