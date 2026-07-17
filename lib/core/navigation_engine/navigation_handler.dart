@@ -11,10 +11,10 @@ import '../../features/onboarding/presentation/onboarding_screen.dart';
 import '../../features/workspace/presentation/workspace_screen.dart';
 import '../../features/settings/presentation/settings_screen.dart';
 import '../../features/about/presentation/about_screen.dart';
+import '../../features/donors/presentation/donor_hall_screen.dart';
 import '../config/app_colors.dart';
 import '../config/routes.dart';
 import '../design_system/app_typography.dart';
-import 'app_drawer.dart';
 
 class NavigationHandler {
   static final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -86,6 +86,10 @@ class NavigationHandler {
         path: Routes.about,
         builder: (context, state) => const AboutScreen(),
       ),
+      GoRoute(
+        path: Routes.donorHall,
+        builder: (context, state) => const DonorHallScreen(),
+      ),
     ],
   );
 }
@@ -99,7 +103,6 @@ class MainShell extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: child,
-      drawer: const AppDrawer(),
       bottomNavigationBar: const _MainBottomNav(),
     );
   }
@@ -167,10 +170,169 @@ class _MainBottomNav extends StatelessWidget {
                 activeIcon: Icons.more_horiz_rounded,
                 label: 'More',
                 isActive: currentIndex == 4,
-                onTap: () => Scaffold.of(context).openDrawer(),
+                onTap: () => _showMorePopup(context),
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  void _showMorePopup(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Container(
+        padding: const EdgeInsets.fromLTRB(24, 16, 24, 24),
+        decoration: const BoxDecoration(
+          color: AppColors.surface,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Handle
+            Container(
+              width: 40,
+              height: 4,
+              decoration: BoxDecoration(
+                color: AppColors.divider,
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+            const SizedBox(height: 20),
+
+            // Title
+            const Text(
+              'More Options',
+              style: TextStyle(
+                fontFamily: 'Playfair Display',
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+                color: AppColors.textPrimary,
+              ),
+            ),
+            const SizedBox(height: 20),
+
+            // Options
+            _MoreOption(
+              icon: Icons.favorite_rounded,
+              iconColor: AppColors.accent,
+              title: 'Donor Hall',
+              subtitle: 'Honour those who made this possible',
+              onTap: () {
+                Navigator.pop(context);
+                context.push(Routes.donorHall);
+              },
+            ),
+            const SizedBox(height: 8),
+            _MoreOption(
+              icon: Icons.person_rounded,
+              iconColor: AppColors.primary,
+              title: 'About the Bishop',
+              subtitle: 'Rt. Rev. Dr. Bob John Hassan Koroma',
+              onTap: () {
+                Navigator.pop(context);
+                context.push(Routes.about);
+              },
+            ),
+            const SizedBox(height: 8),
+            _MoreOption(
+              icon: Icons.settings_rounded,
+              iconColor: AppColors.palmGreen,
+              title: 'Settings',
+              subtitle: 'Theme, font size, notifications',
+              onTap: () {
+                Navigator.pop(context);
+                context.go(Routes.settings);
+              },
+            ),
+            const SizedBox(height: 8),
+            _MoreOption(
+              icon: Icons.notifications_rounded,
+              iconColor: AppColors.earthBrown,
+              title: 'Prayer Reminders',
+              subtitle: 'Set your daily prayer schedule',
+              onTap: () {
+                Navigator.pop(context);
+                context.push(Routes.reminders);
+              },
+            ),
+            const SizedBox(height: 8),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _MoreOption extends StatelessWidget {
+  final IconData icon;
+  final Color iconColor;
+  final String title;
+  final String subtitle;
+  final VoidCallback onTap;
+
+  const _MoreOption({
+    required this.icon,
+    required this.iconColor,
+    required this.title,
+    required this.subtitle,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(14),
+        decoration: BoxDecoration(
+          color: AppColors.surface,
+          borderRadius: BorderRadius.circular(14),
+          border: Border.all(color: AppColors.divider),
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 44,
+              height: 44,
+              decoration: BoxDecoration(
+                color: iconColor.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Icon(icon, color: iconColor, size: 22),
+            ),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    subtitle,
+                    style: const TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 11,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const Icon(Icons.chevron_right, color: AppColors.textTertiary, size: 20),
+          ],
         ),
       ),
     );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/config/app_colors.dart';
 import '../../../core/config/app_config.dart';
+import '../../../core/config/routes.dart';
 import '../../../core/design_system/design_system.dart';
 import '../../../core/di/injection.dart';
 import '../../../core/storage/local_storage.dart';
@@ -212,7 +213,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       title: 'Notifications',
       children: [
         InkWell(
-          onTap: () => context.push('/reminders'),
+          onTap: () => context.push(Routes.reminders),
           child: Padding(
             padding: const EdgeInsets.all(Spacing.lg),
             child: Row(
@@ -257,39 +258,46 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return _buildSection(
       title: 'About',
       children: [
-        // Bishop portrait
-        Padding(
-          padding: const EdgeInsets.fromLTRB(Spacing.lg, Spacing.lg, Spacing.lg, Spacing.md),
-          child: Row(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Image.asset(
-                  'assets/images/bishop_koroma_landscape.png',
-                  width: 80,
-                  height: 56,
-                  fit: BoxFit.cover,
+        GestureDetector(
+          onTap: () => context.push(Routes.about),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(Spacing.lg, Spacing.lg, Spacing.lg, Spacing.md),
+            child: Row(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Image.asset(
+                    'assets/images/bishop_koroma_landscape.png',
+                    width: 80,
+                    height: 56,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ),
-              const SizedBox(width: Spacing.lg),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Rev. Dr. Bob John Hassan Koroma',
+                const SizedBox(width: Spacing.lg),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Rev. Dr. Bob John Hassan Koroma',
                         style: AppTypography.labelLarge.copyWith(
                           color: AppColors.textPrimary,
                           fontWeight: FontWeight.w600,
-                        )),
-                    const SizedBox(height: 2),
-                    Text('Bishop of Makeni Diocese',
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        'Bishop of Makeni Diocese',
                         style: AppTypography.caption.copyWith(
                           color: AppColors.textSecondary,
-                        )),
-                  ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+                const Icon(Icons.chevron_right, color: AppColors.textTertiary),
+              ],
+            ),
           ),
         ),
         const Divider(height: 1, color: AppColors.divider),

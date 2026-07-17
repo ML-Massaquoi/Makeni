@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/config/app_colors.dart';
@@ -7,6 +8,7 @@ import '../../../core/database/models/content_item.dart';
 import '../../../core/di/injection.dart';
 import '../../../core/services/daily_prayer_service.dart';
 import '../../../core/storage/local_storage.dart';
+import '../../donors/presentation/donor_hall_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -38,7 +40,7 @@ class HomeScreen extends StatelessWidget {
 
           // Stats Row
           SliverToBoxAdapter(
-            child: _buildStatsRow(bookmarks.length, history.length),
+            child: _buildStatsRow(bookmarks.length, history.length, context),
           ),
 
           // Continue Reading
@@ -49,7 +51,12 @@ class HomeScreen extends StatelessWidget {
 
           // Today's Prayer Hero Card
           SliverToBoxAdapter(
-            child: _buildTodayPrayer(context),
+            child: _buildTodayPrayer(context, dailyPrayer),
+          ),
+
+          // Donor Spotlight — "Made possible by..."
+          const SliverToBoxAdapter(
+            child: _DonorSpotlight(),
           ),
 
           // Quick Actions
@@ -169,17 +176,20 @@ class HomeScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.15),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: const Icon(
-                        Icons.notifications_outlined,
-                        color: Colors.white,
-                        size: 20,
+                    GestureDetector(
+                      onTap: () => context.push(Routes.reminders),
+                      child: Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: Colors.white.withValues(alpha: 0.15),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: const Icon(
+                          Icons.notifications_outlined,
+                          color: Colors.white,
+                          size: 20,
+                        ),
                       ),
                     ),
                   ],
@@ -223,7 +233,7 @@ class HomeScreen extends StatelessWidget {
   }
 
   // ─── Stats Row ───
-  Widget _buildStatsRow(int bookmarksCount, int historyCount) {
+  Widget _buildStatsRow(int bookmarksCount, int historyCount, BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
       child: Row(
@@ -233,6 +243,7 @@ class HomeScreen extends StatelessWidget {
             label: 'Prayers',
             count: '224',
             color: AppColors.primary,
+            onTap: () => context.go(Routes.library),
           ),
           const SizedBox(width: 12),
           _buildStatCard(
@@ -240,6 +251,7 @@ class HomeScreen extends StatelessWidget {
             label: 'Saved',
             count: '$bookmarksCount',
             color: AppColors.accent,
+            onTap: () => context.go(Routes.workspace),
           ),
           const SizedBox(width: 12),
           _buildStatCard(
@@ -247,6 +259,7 @@ class HomeScreen extends StatelessWidget {
             label: 'Read',
             count: '$historyCount',
             color: AppColors.palmGreen,
+            onTap: () => context.go(Routes.workspace),
           ),
         ],
       ),
@@ -258,9 +271,12 @@ class HomeScreen extends StatelessWidget {
     required String label,
     required String count,
     required Color color,
+    required VoidCallback onTap,
   }) {
     return Expanded(
-      child: Container(
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
         padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
         decoration: BoxDecoration(
           color: AppColors.surface,
@@ -304,6 +320,7 @@ class HomeScreen extends StatelessWidget {
             ),
           ],
         ),
+       ),
       ),
     );
   }
@@ -330,7 +347,7 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () => context.go(Routes.workspace),
                 child: const Text(
                   'See all',
                   style: TextStyle(
@@ -433,11 +450,11 @@ class HomeScreen extends StatelessWidget {
   }
 
   // ─── Today's Prayer Hero Card ───
-  Widget _buildTodayPrayer(BuildContext context) {
+  Widget _buildTodayPrayer(BuildContext context, DailyPrayerService dailyPrayer) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
       child: GestureDetector(
-        onTap: () => context.push('${Routes.reader}/lord_prayer'),
+        onTap: () => context.push('${Routes.readerPage}/${dailyPrayer.prayerPage}'),
         child: Container(
           width: double.infinity,
           height: 180,
@@ -489,9 +506,9 @@ class HomeScreen extends StatelessWidget {
                           color: Colors.white.withValues(alpha: 0.15),
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        child: const Text(
-                          "Today's Prayer",
-                          style: TextStyle(
+                        child: Text(
+                          dailyPrayer.prayerTitle,
+                          style: const TextStyle(
                             fontFamily: 'Poppins',
                             fontSize: 11,
                             color: Colors.white70,
@@ -849,4 +866,193 @@ class _Category {
   final IconData icon;
   final Color color;
   _Category(this.label, this.icon, this.color);
+}
+
+class _DonorSpotlight extends StatefulWidget {
+  const _DonorSpotlight();
+
+  @override
+  State<_DonorSpotlight> createState() => _DonorSpotlightState();
+}
+
+class _DonorSpotlightState extends State<_DonorSpotlight>
+    with SingleTickerProviderStateMixin {
+  int _currentIndex = 0;
+  late AnimationController _controller;
+  late Animation<double> _fadeAnimation;
+  List<dynamic> _donors = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 600),
+    );
+    _fadeAnimation = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
+    _loadDonors();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  Future<void> _loadDonors() async {
+    try {
+      final data = await DefaultAssetBundle.of(context).loadString('assets/data/donors.json');
+      final json = jsonDecode(data) as Map<String, dynamic>;
+      final donors = json['donors'] as List? ?? [];
+      if (mounted) {
+        setState(() => _donors = donors);
+        _controller.forward();
+        _startRotation();
+      }
+    } catch (e) {
+      debugPrint('Error loading donors: $e');
+    }
+  }
+
+  void _startRotation() {
+    Future.delayed(const Duration(seconds: 8), () {
+      if (mounted && _donors.length > 1) {
+        _controller.reverse().then((_) {
+          setState(() {
+            _currentIndex = (_currentIndex + 1) % _donors.length;
+          });
+          _controller.forward().then((_) => _startRotation());
+        });
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_donors.isEmpty) return const SizedBox.shrink();
+
+    final donor = _donors[_currentIndex];
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
+      child: GestureDetector(
+        onTap: () => context.push(Routes.donorHall),
+        child: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [AppColors.primary, Color(0xFF0D4F6B)],
+            ),
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.primary.withValues(alpha: 0.3),
+                blurRadius: 16,
+                offset: const Offset(0, 6),
+              ),
+            ],
+          ),
+          child: Row(
+            children: [
+              // Donor photo with gold ring
+              Container(
+                width: 64,
+                height: 64,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(color: AppColors.accent, width: 2.5),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.accent.withValues(alpha: 0.3),
+                      blurRadius: 12,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: ClipOval(
+                  child: FadeTransition(
+                    opacity: _fadeAnimation,
+                    child: Image.asset(
+                      'assets/images/${donor['photo'] ?? 'bishop_koroma_landscape.png'}',
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) => Container(
+                        color: Colors.white.withValues(alpha: 0.1),
+                        child: const Icon(Icons.person, color: Colors.white, size: 30),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 14),
+              // Info
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Made possible by',
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontSize: 10,
+                        color: Colors.white.withValues(alpha: 0.6),
+                        letterSpacing: 0.8,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    FadeTransition(
+                      opacity: _fadeAnimation,
+                      child: Text(
+                        donor['name'] ?? '',
+                        style: const TextStyle(
+                          fontFamily: 'Playfair Display',
+                          fontSize: 15,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    FadeTransition(
+                      opacity: _fadeAnimation,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                        decoration: BoxDecoration(
+                          color: AppColors.accent.withValues(alpha: 0.25),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Text(
+                          donor['role'] ?? '',
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontSize: 9,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.accent,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              // Arrow
+              Container(
+                width: 32,
+                height: 32,
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.15),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Icon(Icons.arrow_forward_ios, color: Colors.white, size: 14),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }

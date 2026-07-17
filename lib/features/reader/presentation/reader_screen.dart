@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import '../../../core/config/app_colors.dart';
+import '../../../core/config/routes.dart';
 import '../../../core/database/data_repository.dart';
 import '../../../core/database/models/content_item.dart';
 import '../../../core/database/models/hymn.dart';
@@ -328,11 +330,11 @@ class ReaderScreenState extends State<ReaderScreen> with TickerProviderStateMixi
                 ),
               ),
 
-            // Floating toolbar
+            // Floating toolbar — positioned to not overlap content
             if (!_isSacredMode)
               Positioned(
-                right: 16,
-                top: MediaQuery.of(context).padding.top + (_headerCollapsed ? 56 : 104),
+                right: 8,
+                top: MediaQuery.of(context).padding.top + (_headerCollapsed ? 52 : 100),
                 child: FadeTransition(
                   opacity: _toolbarOpacity,
                   child: _buildFloatingToolbar(theme),
@@ -405,10 +407,11 @@ class ReaderScreenState extends State<ReaderScreen> with TickerProviderStateMixi
                 Expanded(
                   child: Text(
                     _headerCollapsed ? _title : '',
-                    style: TextStyle(
+                    style: const TextStyle(
+                      fontFamily: 'Playfair Display',
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
-                      color: theme.textColor,
+                      color: AppColors.textPrimary,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -800,12 +803,7 @@ class ReaderScreenState extends State<ReaderScreen> with TickerProviderStateMixi
                 return [
                   InkWell(
                     onTap: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => ReaderScreen(contentId: nextId),
-                        ),
-                      );
+                      context.pushReplacement('${Routes.reader}/$nextId');
                     },
                     child: Container(
                       width: double.infinity,
@@ -864,12 +862,7 @@ class ReaderScreenState extends State<ReaderScreen> with TickerProviderStateMixi
                       padding: const EdgeInsets.only(bottom: 8),
                       child: InkWell(
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => ReaderScreen(contentId: id),
-                            ),
-                          );
+                          context.push('${Routes.reader}/$id');
                         },
                         child: Row(
                           children: [
@@ -899,12 +892,12 @@ class ReaderScreenState extends State<ReaderScreen> with TickerProviderStateMixi
     return Container(
       decoration: BoxDecoration(
         color: theme.surfaceColor,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.1),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
           ),
         ],
       ),
@@ -913,13 +906,9 @@ class ReaderScreenState extends State<ReaderScreen> with TickerProviderStateMixi
         children: [
           _toolbarButton(Icons.bookmark_outline, _isBookmarked ? AppColors.accent : null, _toggleBookmark),
           _toolbarButton(Icons.auto_stories, null, _openOutline),
-          _toolbarButton(Icons.search, null, null),
           _toolbarButton(Icons.text_fields, null, _openSettings),
           _toolbarButton(Icons.share_outlined, null, _shareContent),
           _toolbarButton(Icons.edit_outlined, null, _openReflection),
-          if (_isBookmarked || _sections.isNotEmpty)
-            _toolbarButton(
-                Icons.details_outlined, null, _enterSacredMode),
         ],
       ),
     );
@@ -927,13 +916,13 @@ class ReaderScreenState extends State<ReaderScreen> with TickerProviderStateMixi
 
   Widget _toolbarButton(IconData icon, Color? color, VoidCallback? onTap) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.symmetric(vertical: 2),
       child: IconButton(
         onPressed: onTap,
-        icon: Icon(icon, size: 20, color: color ?? AppColors.textSecondary),
-        splashRadius: 18,
-        padding: const EdgeInsets.all(10),
-        constraints: const BoxConstraints(minWidth: 40, minHeight: 40),
+        icon: Icon(icon, size: 18, color: color ?? AppColors.textSecondary),
+        splashRadius: 14,
+        padding: const EdgeInsets.all(6),
+        constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
       ),
     );
   }
@@ -1026,11 +1015,11 @@ class ReaderScreenState extends State<ReaderScreen> with TickerProviderStateMixi
   EdgeInsets _marginPadding() {
     switch (_margin) {
       case 'narrow':
-        return const EdgeInsets.symmetric(horizontal: 16);
+        return const EdgeInsets.fromLTRB(16, 24, 48, 16);
       case 'wide':
-        return const EdgeInsets.symmetric(horizontal: 32);
+        return const EdgeInsets.fromLTRB(32, 24, 48, 16);
       default:
-        return const EdgeInsets.symmetric(horizontal: 24);
+        return const EdgeInsets.fromLTRB(24, 24, 48, 16);
     }
   }
 

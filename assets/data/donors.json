@@ -1,0 +1,21 @@
+{
+  "donors": [
+    {
+      "id": "bishop_koroma",
+      "name": "Rt. Rev. Dr. Bob John Hassan Koroma",
+      "title": "Bishop of Makeni Diocese",
+      "role": "Patron & First Benefactor",
+      "photo": "bishop_koroma_landscape.png",
+      "message": "Through the grace of God, I am honoured to support the creation of this digital prayer companion for the faithful of Makeni and beyond.",
+      "date": "2025-01-01",
+      "prayer": "Heavenly Father, we lift up all who have contributed to this work of evangelisation. May Our Lady of Fatima intercede for them and their families. May God bless them abundantly and grant them peace, health, and joy in this life and the next. Through Christ our Lord. Amen.",
+      "isBishop": true
+    }
+  ],
+  "prayerSection": {
+    "title": "Prayers for Our Donors",
+    "subtitle": "A special prayer from Bishop Bob John Hassan Koroma",
+    "bishopPrayer": "Almighty and merciful God, Creator of all that is good, we come before You with grateful hearts for those who have generously supported the development of this Makeni Prayer & Hymn Book app.\n\nWe pray for each donor and their families: that You may bless them with good health, lasting peace, and overflowing joy. May their generosity in supporting God's work return to them a hundredfold.\n\nWe ask the Blessed Virgin Mary, Our Lady of Fatima, to watch over them. May Saint Augustine, patron of our diocese, intercede for them before Your throne.\n\nGrant them the grace to continue walking in faith, and may this app be a testament to their love for God and His Church.\n\nThrough Jesus Christ our Lord. Amen.",
+    "bishopSignature": "Most Rev. Dr. Bob John Hassan Koroma\nBishop of Makeni Diocese"
+  }
+}
