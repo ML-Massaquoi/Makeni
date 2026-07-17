@@ -225,8 +225,10 @@ class AppDrawer extends StatelessWidget {
           onTap: () {
             Navigator.pop(context);
             if (!item.isActive) {
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                context.go(item.route);
+              Future.delayed(const Duration(milliseconds: 300), () {
+                if (context.mounted) {
+                  context.go(item.route);
+                }
               });
             }
           },

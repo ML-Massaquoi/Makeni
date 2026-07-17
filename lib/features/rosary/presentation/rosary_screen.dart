@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import '../../../core/config/app_colors.dart';
+import '../../../core/config/routes.dart';
 import '../../../core/design_system/design_system.dart';
 import '../../../core/services/rosary_service.dart';
 
@@ -135,7 +137,7 @@ class _RosaryScreenState extends State<RosaryScreen> {
           Row(
             children: [
               IconButton(
-                onPressed: () => Navigator.pop(context),
+                onPressed: () => context.go(Routes.home),
                 icon: const Icon(Icons.arrow_back_ios_new),
                 color: AppColors.textPrimary,
               ),
