@@ -597,10 +597,10 @@ class ReaderScreenState extends State<ReaderScreen> with TickerProviderStateMixi
         padding: padding,
         child: Container(
           width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
           decoration: BoxDecoration(
             color: theme.surfaceColor,
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(10),
             border: Border.all(color: theme.dividerColor, width: 0.5),
           ),
           child: Text(
@@ -617,26 +617,39 @@ class ReaderScreenState extends State<ReaderScreen> with TickerProviderStateMixi
         padding: padding,
         child: Container(
           width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             color: theme.surfaceColor,
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: AppColors.accent.withValues(alpha: 0.15), width: 0.5),
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: AppColors.accent.withValues(alpha: 0.25),
+            ),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Priest',
-                style: TextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.accent,
-                  letterSpacing: 1.2,
-                ),
+              Row(
+                children: [
+                  Icon(Icons.auto_awesome, size: 14, color: AppColors.accent),
+                  const SizedBox(width: 6),
+                  Text(
+                    'Priest',
+                    style: TextStyle(
+                      fontFamily: 'Playfair Display',
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.accent,
+                      letterSpacing: 0.8,
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 6),
-              Text(block.text, style: style, textAlign: align),
+              const SizedBox(height: 8),
+              Text(
+                block.text,
+                style: style,
+                textAlign: align,
+              ),
             ],
           ),
         ),
@@ -649,25 +662,39 @@ class ReaderScreenState extends State<ReaderScreen> with TickerProviderStateMixi
         padding: padding,
         child: Container(
           width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: theme.backgroundColor,
-            borderRadius: BorderRadius.circular(8),
+            color: theme.surfaceColor,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: AppColors.primary.withValues(alpha: 0.15),
+            ),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Response',
-                style: TextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.w600,
-                  color: theme.secondaryTextColor,
-                  letterSpacing: 1.2,
-                ),
+              Row(
+                children: [
+                  Icon(Icons.volume_up_outlined, size: 14, color: theme.secondaryTextColor),
+                  const SizedBox(width: 6),
+                  Text(
+                    'Response',
+                    style: TextStyle(
+                      fontFamily: 'Playfair Display',
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600,
+                      color: theme.secondaryTextColor,
+                      letterSpacing: 0.8,
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 6),
-              Text(block.text, style: style, textAlign: align),
+              const SizedBox(height: 8),
+              Text(
+                block.text,
+                style: style,
+                textAlign: align,
+              ),
             ],
           ),
         ),
@@ -679,16 +706,41 @@ class ReaderScreenState extends State<ReaderScreen> with TickerProviderStateMixi
         padding: padding,
         child: Container(
           width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            border: Border(
-              left: BorderSide(
-                color: AppColors.accent.withValues(alpha: 0.4),
-                width: 3,
-              ),
+            color: theme.surfaceColor,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: AppColors.accent.withValues(alpha: 0.2),
             ),
           ),
-          child: Text(block.text, style: style, textAlign: align),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Icon(Icons.menu_book_outlined, size: 14, color: AppColors.accent),
+                  const SizedBox(width: 6),
+                  Text(
+                    'Scripture',
+                    style: TextStyle(
+                      fontFamily: 'Playfair Display',
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.accent,
+                      letterSpacing: 0.8,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Text(
+                block.text,
+                style: style,
+                textAlign: align,
+              ),
+            ],
+          ),
         ),
       );
     }
@@ -699,7 +751,7 @@ class ReaderScreenState extends State<ReaderScreen> with TickerProviderStateMixi
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(Icons.info_outline, size: 16, color: AppColors.accent.withValues(alpha: 0.6)),
+            Icon(Icons.info_outline, size: 16, color: AppColors.accent.withValues(alpha: 0.5)),
             const SizedBox(width: 8),
             Expanded(child: Text(block.text, style: style, textAlign: align)),
           ],
@@ -712,16 +764,17 @@ class ReaderScreenState extends State<ReaderScreen> with TickerProviderStateMixi
         padding: padding,
         child: Container(
           width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+          padding: const EdgeInsets.all(14),
           decoration: BoxDecoration(
-            color: AppColors.accent.withValues(alpha: 0.05),
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: AppColors.accent.withValues(alpha: 0.1)),
+            color: AppColors.accent.withValues(alpha: 0.04),
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: AppColors.accent.withValues(alpha: 0.12)),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('✝ ', style: TextStyle(color: AppColors.accent, fontSize: 16 * _fontScale)),
+              Icon(Icons.auto_awesome, size: 14, color: AppColors.accent.withValues(alpha: 0.6)),
+              const SizedBox(width: 8),
               Expanded(child: Text(block.text, style: style, textAlign: align)),
             ],
           ),

@@ -15,6 +15,7 @@ import '../../features/donors/presentation/donor_hall_screen.dart';
 import '../config/app_colors.dart';
 import '../config/routes.dart';
 import '../design_system/app_typography.dart';
+import 'app_drawer.dart';
 
 class NavigationHandler {
   static final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -92,6 +93,94 @@ class NavigationHandler {
       ),
     ],
   );
+
+  static void showMorePopup(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      builder: (context) => Padding(
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: Container(
+          padding: const EdgeInsets.fromLTRB(24, 16, 24, 24),
+          decoration: const BoxDecoration(
+            color: AppColors.surface,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 40,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: AppColors.divider,
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                const Text(
+                  'More Options',
+                  style: TextStyle(
+                    fontFamily: 'Playfair Display',
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                MoreOption(
+                  icon: Icons.favorite_rounded,
+                  iconColor: AppColors.accent,
+                  title: 'Donor Hall',
+                  subtitle: 'Honour those who made this possible',
+                  onTap: () {
+                    Navigator.pop(context);
+                    context.push(Routes.donorHall);
+                  },
+                ),
+                const SizedBox(height: 8),
+                MoreOption(
+                  icon: Icons.person_rounded,
+                  iconColor: AppColors.primary,
+                  title: 'About the Bishop',
+                  subtitle: 'Rt. Rev. Dr. Bob John Hassan Koroma',
+                  onTap: () {
+                    Navigator.pop(context);
+                    context.push(Routes.about);
+                  },
+                ),
+                const SizedBox(height: 8),
+                MoreOption(
+                  icon: Icons.settings_rounded,
+                  iconColor: AppColors.palmGreen,
+                  title: 'Settings',
+                  subtitle: 'Theme, font size, notifications',
+                  onTap: () {
+                    Navigator.pop(context);
+                    context.go(Routes.settings);
+                  },
+                ),
+                const SizedBox(height: 8),
+                MoreOption(
+                  icon: Icons.notifications_rounded,
+                  iconColor: AppColors.earthBrown,
+                  title: 'Prayer Reminders',
+                  subtitle: 'Set your daily prayer schedule',
+                  onTap: () {
+                    Navigator.pop(context);
+                    context.push(Routes.reminders);
+                  },
+                ),
+                const SizedBox(height: 8),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 class MainShell extends StatelessWidget {
@@ -103,6 +192,7 @@ class MainShell extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: child,
+      drawer: const AppDrawer(),
       bottomNavigationBar: const _MainBottomNav(),
     );
   }
@@ -170,7 +260,7 @@ class _MainBottomNav extends StatelessWidget {
                 activeIcon: Icons.more_horiz_rounded,
                 label: 'More',
                 isActive: currentIndex == 4,
-                onTap: () => _showMorePopup(context),
+                onTap: () => NavigationHandler.showMorePopup(context),
               ),
             ],
           ),
@@ -178,103 +268,17 @@ class _MainBottomNav extends StatelessWidget {
       ),
     );
   }
-
-  void _showMorePopup(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: Colors.transparent,
-      builder: (context) => Container(
-        padding: const EdgeInsets.fromLTRB(24, 16, 24, 24),
-        decoration: const BoxDecoration(
-          color: AppColors.surface,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // Handle
-            Container(
-              width: 40,
-              height: 4,
-              decoration: BoxDecoration(
-                color: AppColors.divider,
-                borderRadius: BorderRadius.circular(2),
-              ),
-            ),
-            const SizedBox(height: 20),
-
-            // Title
-            const Text(
-              'More Options',
-              style: TextStyle(
-                fontFamily: 'Playfair Display',
-                fontSize: 20,
-                fontWeight: FontWeight.w700,
-                color: AppColors.textPrimary,
-              ),
-            ),
-            const SizedBox(height: 20),
-
-            // Options
-            _MoreOption(
-              icon: Icons.favorite_rounded,
-              iconColor: AppColors.accent,
-              title: 'Donor Hall',
-              subtitle: 'Honour those who made this possible',
-              onTap: () {
-                Navigator.pop(context);
-                context.push(Routes.donorHall);
-              },
-            ),
-            const SizedBox(height: 8),
-            _MoreOption(
-              icon: Icons.person_rounded,
-              iconColor: AppColors.primary,
-              title: 'About the Bishop',
-              subtitle: 'Rt. Rev. Dr. Bob John Hassan Koroma',
-              onTap: () {
-                Navigator.pop(context);
-                context.push(Routes.about);
-              },
-            ),
-            const SizedBox(height: 8),
-            _MoreOption(
-              icon: Icons.settings_rounded,
-              iconColor: AppColors.palmGreen,
-              title: 'Settings',
-              subtitle: 'Theme, font size, notifications',
-              onTap: () {
-                Navigator.pop(context);
-                context.go(Routes.settings);
-              },
-            ),
-            const SizedBox(height: 8),
-            _MoreOption(
-              icon: Icons.notifications_rounded,
-              iconColor: AppColors.earthBrown,
-              title: 'Prayer Reminders',
-              subtitle: 'Set your daily prayer schedule',
-              onTap: () {
-                Navigator.pop(context);
-                context.push(Routes.reminders);
-              },
-            ),
-            const SizedBox(height: 8),
-          ],
-        ),
-      ),
-    );
-  }
 }
 
-class _MoreOption extends StatelessWidget {
+class MoreOption extends StatelessWidget {
   final IconData icon;
   final Color iconColor;
   final String title;
   final String subtitle;
   final VoidCallback onTap;
 
-  const _MoreOption({
+  const MoreOption({
+    super.key,
     required this.icon,
     required this.iconColor,
     required this.title,
